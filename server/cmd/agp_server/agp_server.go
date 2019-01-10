@@ -18,7 +18,7 @@ func main() {
 	handler.WebSocketService = gorilla.NewWebSocketService()
 
 	server := http.NewServer()
-	server.Addr = "localhost:8080"
+	server.Addr = ":8080"
 	server.Handler = handler
 
 	if err := server.Open(); err != nil {
