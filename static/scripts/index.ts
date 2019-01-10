@@ -1,4 +1,4 @@
-const websocket = new WebSocket("ws://192.168.0.175:8080/ws");
+const websocket = new WebSocket("ws://localhost:8080/ws");
 
 function isDiv(element: Element): element is HTMLDivElement {
     return element.tagName === "DIV";

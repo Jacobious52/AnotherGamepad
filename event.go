@@ -1,11 +1,10 @@
-package server // TODO(jacobious52): this should be project name folder in root. e.g. anothergamepad
+package anothergamepad
 
 import (
 	"time"
 )
 
 type Event struct {
-	Name string    `json:"name,omitempty"`
 	Key  string    `json:"key"`
 	Type string    `json:"type"`
 	Time time.Time `json:"time,omitempty"`

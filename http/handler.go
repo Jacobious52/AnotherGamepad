@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	anothergamepad "github.com/Jacobious52/AnotherGamepad"
 	"github.com/Jacobious52/AnotherGamepad/keyboard"
 
-	server "github.com/Jacobious52/AnotherGamepad"
 	"github.com/Jacobious52/AnotherGamepad/gorilla"
 
 	"github.com/gorilla/websocket"
@@ -64,7 +64,7 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 		switch mt {
 		case websocket.TextMessage:
 
-			var event server.Event
+			var event anothergamepad.Event
 			err := json.Unmarshal(message, &event)
 			if err != nil {
 				log.Fatalln("failed to decode json message", err)

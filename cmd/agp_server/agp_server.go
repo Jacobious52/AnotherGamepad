@@ -8,7 +8,6 @@ import (
 
 	"github.com/Jacobious52/AnotherGamepad/http"
 	log "github.com/sirupsen/logrus"
-	// kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
 func main() {
