@@ -49,5 +49,3 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
-
-*.js
