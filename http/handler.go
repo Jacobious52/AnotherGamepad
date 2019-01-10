@@ -2,7 +2,9 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"time"
 
 	anothergamepad "github.com/Jacobious52/AnotherGamepad"
 	"github.com/Jacobious52/AnotherGamepad/keyboard"
@@ -43,7 +45,7 @@ func (h *Handler) index(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 
 func (h *Handler) status(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("webserver running"))
+	w.Write([]byte(fmt.Sprintf("webserver running: %v", time.Now())))
 }
 
 func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -68,15 +70,16 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 			var event anothergamepad.Event
 			err := json.Unmarshal(message, &event)
 			if err != nil {
-				log.Fatalln("failed to decode json message", err)
+				log.Errorln("failed to decode json message", err)
+				return
 			}
 
-			log.Infof("key: %s, state: %s\n", event.Key, event.Type)
+			log.Infof("key: \"%s\", state: \"%s\"\n", event.Key, event.State())
 			keyboard.KeyToggle(event.Key, event.State())
 
 		case websocket.CloseMessage:
 			log.Infoln("close message received")
-			break
+			return
 			// TODO(jacobious52): Ping/Pong
 		}
 	}
