@@ -33,6 +33,7 @@ func NewHandler() *Handler {
 	h.GET("/", h.index)
 	h.GET("/status", h.status)
 	h.GET("/ws", h.upgrade)
+
 	//h.ServeFiles("/static/*filepath", http.Dir("static"))
 	h.NotFound = http.FileServer(http.Dir("static"))
 
