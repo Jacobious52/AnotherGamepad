@@ -4,6 +4,8 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/Jacobious52/AnotherGamepad/gorilla"
+
 	"github.com/Jacobious52/AnotherGamepad/http"
 	log "github.com/sirupsen/logrus"
 	// kingpin "gopkg.in/alecthomas/kingpin.v2"
@@ -12,9 +14,12 @@ import (
 func main() {
 	log.Infoln("starting server")
 
+	handler := http.NewHandler()
+	handler.WebSocketService = gorilla.NewWebSocketService()
+
 	server := http.NewServer()
 	server.Addr = "localhost:8080"
-	server.Handler = http.NewHandler()
+	server.Handler = handler
 
 	if err := server.Open(); err != nil {
 		os.Exit(1)

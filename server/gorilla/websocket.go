@@ -5,5 +5,11 @@ import (
 )
 
 type WebSocketService struct {
-	websocket.Upgrader
+	Upgrader websocket.Upgrader
+}
+
+func NewWebSocketService() *WebSocketService {
+	return &WebSocketService{
+		Upgrader: websocket.Upgrader{},
+	}
 }

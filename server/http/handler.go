@@ -1,11 +1,15 @@
 package http
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/gorilla/websocket"
+	"github.com/Jacobious52/AnotherGamepad/keyboard"
 
+	server "github.com/Jacobious52/AnotherGamepad"
 	"github.com/Jacobious52/AnotherGamepad/gorilla"
+
+	"github.com/gorilla/websocket"
 
 	log "github.com/sirupsen/logrus"
 
@@ -16,11 +20,10 @@ import (
 type Handler struct {
 	*httprouter.Router
 
-	*gorilla.WebSocketService
+	WebSocketService *gorilla.WebSocketService
 }
 
 func NewHandler() *Handler {
-
 	h := &Handler{
 		Router: httprouter.New(),
 	}
@@ -60,7 +63,16 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 
 		switch mt {
 		case websocket.TextMessage:
-			_ = message
+
+			var event server.Event
+			err := json.Unmarshal(message, &event)
+			if err != nil {
+				log.Fatalln("failed to decode json message", err)
+			}
+
+			log.Infof("key: %s, state: %s\n", event.Key, event.Type)
+			keyboard.KeyToggle(event.Key, event.State())
+
 		case websocket.CloseMessage:
 			log.Infoln("close message received")
 			break
