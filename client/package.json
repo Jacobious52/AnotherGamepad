@@ -6,9 +6,9 @@
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "init": "tsc --init",
     "compile": "tsc",
     "format": "pretty",
+    "prestart": "tsc",
     "start": "serve"
   }
 }

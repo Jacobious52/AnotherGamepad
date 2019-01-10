@@ -8,17 +8,6 @@ function isButton(element: Element): element is HTMLButtonElement {
     return element.tagName === "BUTTON";
 }
 
-const mapButtonToKeyboard = new Map([
-    ["control-up", "up"],
-    ["control-left", "left"],
-    ["control-right", "right"],
-    ["control-down", "down"],
-    ["control-a", "a"],
-    ["control-b", "b"],
-    ["control-c", "c"],
-    ["control-d", "d"],
-]);
-
 const mapEventToType = new Map([
    ["mousedown", "press"],
    ["mouseup", "release"],
@@ -27,7 +16,6 @@ const mapEventToType = new Map([
 const buttonListeners = ["mousedown", "mouseup"];
 
 function listener(event: any) {
-    // function listener(event: MouseEvent) {
     if (event.target === null) {
         return;
     }
@@ -35,18 +23,15 @@ function listener(event: any) {
     const buttonName = event.target.getAttribute("name");
 
     const message = {
-        key: mapButtonToKeyboard.get(buttonName) || null,
-        name: buttonName,
+        key: buttonName,
         timestamp: new Date(),
         type: mapEventToType.get(event.type) || null,
     };
 
     websocket.send(JSON.stringify(message));
-    console.log(`Sent: ${JSON.stringify(message)}`);
 }
 
 function attachButtonListeners(parent: any): void {
-    // function attachButtonListeners(parent: HTMLDivElement): void {
     for (const child of parent.children) {
         if (isDiv(child)) {
             attachButtonListeners(child);
