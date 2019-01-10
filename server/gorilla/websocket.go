@@ -4,6 +4,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type WebSocketHandler struct {
-	Upgrade websocket.Upgrader
+type WebSocketService struct {
+	websocket.Upgrader
 }
