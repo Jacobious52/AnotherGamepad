@@ -2,15 +2,15 @@ package main
 
 import (
 	"os"
-	"os/signal"
 
 	"github.com/Jacobious52/AnotherGamepad/gorilla"
 	"github.com/Jacobious52/AnotherGamepad/http"
+	"github.com/Jacobious52/AnotherGamepad/systray"
 
 	log "github.com/sirupsen/logrus"
 )
 
-func main() {
+func serveForever() *http.Server {
 	log.Infoln("starting server")
 
 	handler := http.NewHandler()
@@ -25,11 +25,11 @@ func main() {
 	}
 
 	log.Infoln("server started")
+	return server
+}
 
-	defer server.Close()
-
-	stop := make(chan os.Signal, 1)
-	signal.Notify(stop, os.Interrupt)
-
-	<-stop
+func main() {
+	log.Infoln("Starting app")
+	server := serveForever()
+	systray.LaunchTray(server)
 }

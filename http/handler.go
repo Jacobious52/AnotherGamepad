@@ -7,15 +7,12 @@ import (
 	"time"
 
 	anothergamepad "github.com/Jacobious52/AnotherGamepad"
+	"github.com/Jacobious52/AnotherGamepad/gorilla"
 	"github.com/Jacobious52/AnotherGamepad/keyboard"
 
-	"github.com/Jacobious52/AnotherGamepad/gorilla"
-
 	"github.com/gorilla/websocket"
-
-	log "github.com/sirupsen/logrus"
-
 	"github.com/julienschmidt/httprouter"
+	log "github.com/sirupsen/logrus"
 )
 
 // Handler is the main handler for the server
