@@ -74,7 +74,7 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 			}
 
 			log.Infof("key: \"%s\", state: \"%s\"\n", event.Key, event.State())
-			keyboard.KeyTap(event.Key)
+			keyboard.KeyToggle(event.Key, event.State())
 
 		case websocket.CloseMessage:
 			log.Infoln("close message received")
