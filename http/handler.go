@@ -59,8 +59,10 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 		mt, message, err := c.ReadMessage()
 
 		if err != nil {
-			log.Warningln("websocket read message failed", err)
-			break
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway) {
+				log.Warningf("client warning: %v, user-agent: %v\n", err, r.Header.Get("User-Agent"))
+			}
+			return
 		}
 
 		switch mt {
@@ -77,7 +79,6 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 		case websocket.CloseMessage:
 			log.Infoln("close message received")
 			return
-			// TODO(jacobious52): Ping/Pong
 		}
 	}
 }
