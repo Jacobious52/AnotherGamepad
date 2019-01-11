@@ -38,7 +38,7 @@ function attachButtonListeners() {
     e.addEventListener('touchstart', function () {send(e, "down");}, false);
     e.addEventListener('touchend', function () {send(e, "up");}, false);
     e.addEventListener('touchcancel', function () {send(e, "up");}, false);
-    e.addEventListener('touchstart', function () {configure(e);}, false);
+    e.addEventListener('touchstart click', function () {configure(e);}, false);
   }
 
   const config = document.getElementById("config");
@@ -47,15 +47,12 @@ function attachButtonListeners() {
   });
 }
 
-window.onload = function () {
+controller.onload = function () {
   if ("WebSocket" in window) {
     Notification.requestPermission();
     websocket = new WebSocket("ws://" + window.location.host + "/ws");
+    attachButtonListeners();
   } else {
     alert("WebSocket NOT supported by your Browser! This is required to run the game.");
   }
-}
-
-controller.onload = function () {
-  attachButtonListeners();
 }
