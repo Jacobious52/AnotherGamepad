@@ -61,9 +61,6 @@
         -webkit-user-select: none; -->
       }
 
-      .btn {
-        pointer-events: none;
-      }
     </style>
   </defs>
   <title>controller</title>

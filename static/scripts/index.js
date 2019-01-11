@@ -12,7 +12,6 @@ function configure(element) {
 }
 
 function send(element, state) {
-  alert(state);
   if (mode != "play") {
     return;
   }
@@ -36,9 +35,10 @@ function attachButtonListeners() {
   const btns = controller.contentDocument.getElementsByClassName("btn");
   for (let i = 0; i < btns.length; i++) {
     const e = btns[i];
-    e.addEventListener('touchstart', function () {send(e, "down");}, false);
-    e.addEventListener('touchend', function () {send(e, "up");}, false);
-    e.addEventListener('touchstart', function () {configure(e);}, false);
+    console.log(e);
+    e.addEventListener('touchstart', function () {send(e, "down");});
+    e.addEventListener('touchend', function () {send(e, "up");});
+    e.addEventListener('touchstart', function () {configure(e);});
   }
 
   const config = document.getElementById("config");
