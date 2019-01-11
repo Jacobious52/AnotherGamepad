@@ -33,8 +33,6 @@ func NewHandler() *Handler {
 	h.GET("/", h.index)
 	h.GET("/status", h.status)
 	h.GET("/ws", h.upgrade)
-
-	//h.ServeFiles("/static/*filepath", http.Dir("static"))
 	h.NotFound = http.FileServer(http.Dir("static"))
 
 	return h
@@ -74,8 +72,6 @@ func (h *Handler) upgrade(w http.ResponseWriter, r *http.Request, p httprouter.P
 				log.Errorln("failed to decode json message", err)
 				return
 			}
-
-			log.Infof("key: \"%s\", state: \"%s\"\n", event.Key, event.State())
 			keyboard.KeyToggle(event.Key, event.State())
 
 		case websocket.CloseMessage:

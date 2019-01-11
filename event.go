@@ -11,12 +11,5 @@ type Event struct {
 }
 
 func (e Event) State() string {
-	switch e.Type {
-	case "press":
-		return "down"
-	case "release":
-		return "up"
-	default:
-		return "down"
-	}
+	return e.Type
 }
