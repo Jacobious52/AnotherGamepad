@@ -9,9 +9,19 @@ function configure(element) {
     return;
   }
 
+  if (element.classList.contains("inf")) {
+    return;
+  }
   const val = prompt('Enter new value for button:', element.getAttribute('name'));
   if (val != null) {
     element.setAttribute('name', val);
+  }
+
+  const inf = controller.contentDocument.getElementsByClassName("inf");
+  for (let i = 0; i < inf.length; i++) {
+    const parents = inf[i].getAttribute("data-parent").split(" ");
+    const s = parents.map((v) => controller.contentDocument.getElementById(v).getAttribute("name")).join(" ");
+    inf[i].setAttribute('name', s);
   }
 }
 
@@ -88,7 +98,6 @@ function send(element, state) {
 }
 
 function attachButtonListeners() {
-
   controller.contentDocument.addEventListener('touchstart', handleMove, false);
   controller.contentDocument.addEventListener('touchmove', handleMove, false);
   controller.contentDocument.addEventListener('touchend', handleEnd, false);
