@@ -36,9 +36,12 @@ function attachButtonListeners() {
   for (let i = 0; i < btns.length; i++) {
     const e = btns[i];
     e.addEventListener('touchstart', function () {send(e, "down");}, false);
+    e.addEventListener('mousedown', function () {send(e, "down");}, false);
     e.addEventListener('touchend', function () {send(e, "up");}, false);
-    e.addEventListener('touchcancel', function () {send(e, "up");}, false);
-    e.addEventListener('touchstart click', function () {configure(e);}, false);
+    e.addEventListener('mouseup', function () {send(e, "up");}, false);
+    e.addEventListener('touchcancel mouseup', function () {send(e, "up");}, false);
+    e.addEventListener('touchstart', function () {configure(e);}, false);
+    e.addEventListener('mousedown', function () {configure(e);}, false);
   }
 
   const config = document.getElementById("config");
